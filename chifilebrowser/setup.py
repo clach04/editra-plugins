@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Setup script to build the FileBrowser plugin. To build the plugin
+# Setup script to build the ChiFileBrowser plugin. To build the plugin
 # just run 'python setup.py' and an egg will be built and put into 
 # the plugin directory
 """Setup file for creating the filebrowser pluginr"""
@@ -15,7 +15,7 @@ __author__ = "Cody Precord"
 
 if setup != None:
     setup(
-        name='FileBrowser',
+        name='ChiFileBrowser',
         version='2.2',
         description=__doc__,
         author=__author__,
@@ -23,10 +23,10 @@ if setup != None:
         license="wxWindows",
         url="http://editra.org",
         platforms=["Linux", "OS X", "Windows"],
-        package_data={'filebrowser' : ['locale/*/LC_MESSAGES/*.mo']},
-        packages=['filebrowser'],
+        package_data={'chifilebrowser' : ['locale/*/LC_MESSAGES/*.mo']},
+        packages=['chifilebrowser'],
         entry_points='''
         [Editra.plugins]
-        FileBrowser = filebrowser:FileBrowserPanel
+        ChiFileBrowser = chifilebrowser:FileBrowserPanel
         '''
         )

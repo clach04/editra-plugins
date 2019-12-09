@@ -1,4 +1,4 @@
-Name: FileBrowser
+Name: ChiFileBrowser
 Author=Cody Precord
 Description=UNKNOWN
 Version: 2.2

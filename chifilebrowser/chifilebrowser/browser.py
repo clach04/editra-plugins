@@ -43,11 +43,11 @@ import ebmlib
 import ed_basewin
 
 # Local Modules
-import filebrowser.fbcfg as fbcfg
+import chifilebrowser.fbcfg as fbcfg
 
 #-----------------------------------------------------------------------------#
 # Globals
-PANE_NAME = u'FileBrowser'
+PANE_NAME = u'ChiFileBrowser'
 ID_FILEBROWSE = wx.NewId()
 
 # Configure Platform specific commands
@@ -222,7 +222,7 @@ class BrowserPane(eclib.ControlBox):
 
         #---- Add Menu Items ----#
         viewm = self._mw.MenuBar.GetMenuByName("view")
-        self._mi = viewm.InsertAlpha(ID_FILEBROWSE, _("File Browser"), 
+        self._mi = viewm.InsertAlpha(ID_FILEBROWSE, _("CHI File Browser"),
                                      _("Open File Browser Sidepanel"),
                                      wx.ITEM_CHECK,
                                      after=ed_glob.ID_PRE_MARK)
@@ -606,7 +606,7 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
         try:
             d = self.GetPyData(item)
         except wx.PyAssertionError:
-            util.Log("[FileBrowser][err] FileBrowser2.DoItemExpanding")
+            util.Log("[ChiFileBrowser][err] FileBrowser2.DoItemExpanding")
             return
 
         if d and os.path.exists(d) and os.access(d, os.R_OK):
@@ -615,7 +615,7 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
             with eclib.Freezer(self) as _tmp:
                 self.AppendFileNodes(item, self.FilterFileList(contents))
                 self.SortChildren(item)
-            util.Log("[FileBrowser][info] Tree expand time: %f" % (time.time() - t1))
+            util.Log("[ChiFileBrowser][info] Tree expand time: %f" % (time.time() - t1))
 
             if not self._monitor.AddDirectory(d):
                 self.SetItemImage(item, self._mime.IMG_NO_ACCESS)
@@ -630,7 +630,7 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
         try:
             d = self.GetPyData(item)
         except wx.PyAssertionError:
-            util.Log("[FileBrowser][err] FileBrowser2.DoItemExpanding")
+            util.Log("[ChiFileBrowser][err] FileBrowser2.DoItemExpanding")
             return False
         if d and not os.access(d, os.W_OK) or os.path.ismount(d):
             return False
@@ -727,7 +727,7 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
                 if stat.S_ISREG(res) or stat.S_ISDIR(res):
                     to_open.append(fname)
             except (IOError, OSError), msg:
-                util.Log("[filebrowser][err] %s" % str(msg))
+                util.Log("[chifilebrowser][err] %s" % str(msg))
 
         win = wx.GetApp().GetActiveWindow()
         if win:

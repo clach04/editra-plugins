@@ -39,7 +39,7 @@ class FileBrowserPanel(plugin.Plugin):
         self._mw = parent
         self._log = wx.GetApp().GetLog()
         if self._mw != None:
-            self._log("[filebrowser][info] Installing filebrowser plugin")
+            self._log("[chifilebrowser][info] Installing chifilebrowser plugin")
             
             #---- Create File Browser ----#
             # TODO hook in saved filter from profile
@@ -47,7 +47,7 @@ class FileBrowserPanel(plugin.Plugin):
             mgr = self._mw.GetFrameManager()
             mgr.AddPane(self._filebrowser, 
                         ed_fmgr.EdPaneInfo().Name(browser.PANE_NAME).\
-                            Caption("File Browser").Left().Layer(1).\
+                            Caption("CHI File Browser").Left().Layer(1).\
                             CloseButton(True).MaximizeButton(True).\
                             BestSize(wx.Size(215, 350)))
             mgr.Update()
@@ -83,7 +83,7 @@ class FBConfigObject(plugin.PluginConfigObject):
         @return string
 
         """
-        return _("FileBrowser")
+        return _("ChiFileBrowser")
 
 def GetConfigObject():
     return FBConfigObject()

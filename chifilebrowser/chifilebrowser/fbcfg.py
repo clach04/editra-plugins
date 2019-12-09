@@ -30,7 +30,7 @@ import eclib
 
 _ = wx.GetTranslation
 
-FB_PROF_KEY = "FileBrowser.Config"
+FB_PROF_KEY = "ChiFileBrowser.Config"
 FB_SYNC_OPT = "SyncNotebook"
 FB_SHF_OPT = "ShowHiddenFiles"
 FB_FILTER_OPT = "ExcludeFilePatterns"
@@ -42,7 +42,7 @@ FB_DEFAULT_FILTERS = ["*.pyc", "*.pyo", "*~", "*.bak", "*.a", "*.o",
 
 class FBConfigDlg(ed_basewin.EdBaseDialog):
     def __init__(self, parent):
-        super(FBConfigDlg, self).__init__(parent, title=_("FileBrowser Config"),
+        super(FBConfigDlg, self).__init__(parent, title=_("ChiFileBrowser Config"),
                                           style=wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
 
         # Attributes
@@ -68,7 +68,7 @@ class FBConfigPanel(wx.Panel):
         self._vhf_cb = wx.CheckBox(self,
                                    label=_("Show Hidden Files"),
                                    name=FB_SHF_OPT)
-        self._fsb = wx.StaticBox(self, label=_("Filters"), name=FB_FILTER_OPT)
+        self._fsb = wx.StaticBox(self, label=_("Exclude Filters"), name=FB_FILTER_OPT)
         self._fsbs = wx.StaticBoxSizer(self._fsb, wx.VERTICAL)
         self._filters = wx.ListBox(self, size=(-1, 100), style=wx.LB_SORT)
         bmp = wx.ArtProvider.GetBitmap(str(ed_glob.ID_ADD), wx.ART_MENU)
