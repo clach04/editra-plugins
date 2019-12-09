@@ -21,8 +21,8 @@ import ed_fmgr
 from profiler import Profile_Get, Profile_Set
 
 # Local imports
-import fbcfg
-import browser
+import chifilebrowser.fbcfg as fbcfg
+import chifilebrowser.browser as browser
 
 #-----------------------------------------------------------------------------#
 # Globals

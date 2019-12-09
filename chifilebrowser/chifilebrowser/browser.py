@@ -566,11 +566,17 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
         if not showHidden and ebmlib.IsHidden(path):
             return False
         name = os.path.basename(path)
-        filters = fbcfg.GetFBOption(fbcfg.FB_FILTER_OPT,
+        exclude_filters = fbcfg.GetFBOption(fbcfg.FB_FILTER_OPT,
                                     fbcfg.FB_DEFAULT_FILTERS)
-        if filter(lambda x: fnmatch.fnmatchcase(name, x), filters):
+        print('exclude_filters %r' % (exclude_filters,))
+        if filter(lambda x: fnmatch.fnmatchcase(name, x), exclude_filters):
                 return False
-        return True
+        # TODO? if os.path.isdir(path):
+        include_filters = ('*.txt', '*.chi')
+        if filter(lambda x: fnmatch.fnmatchcase(name, x), include_filters):
+                return True
+        # FIXME return True if a directory name
+        return False
 
     def FilterFileList(self, paths):
         """Filter a list of files returning only the ones that are valid to
@@ -580,7 +586,7 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
 
         """
         showHidden = fbcfg.GetFBOption(fbcfg.FB_SHF_OPT, False)
-        filters = fbcfg.GetFBOption(fbcfg.FB_FILTER_OPT,
+        exclude_filters = fbcfg.GetFBOption(fbcfg.FB_FILTER_OPT,
                                     fbcfg.FB_DEFAULT_FILTERS)
         isHidden = ebmlib.IsHidden
         rval = list()
@@ -590,9 +596,17 @@ class FileBrowser2(ed_basewin.EDBaseFileTree):
             if not showHidden and isHidden(path):
                 continue
             name = getBase(path)
-            if filter(lambda x: fnmatch.fnmatchcase(name, x), filters):
+            if filter(lambda x: fnmatch.fnmatchcase(name, x), exclude_filters):
                 continue
-            rAdd(path)
+
+            if os.path.isdir(path):
+                rAdd(path)
+                continue
+            include_filters = ('*.txt', '*.chi')
+            if filter(lambda x: fnmatch.fnmatchcase(name, x), include_filters):
+                rAdd(path)
+                continue
+                # FIXME add if a directory name
         return rval
 
     def DoItemExpanding(self, item):
