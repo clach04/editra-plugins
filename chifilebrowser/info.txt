@@ -1,4 +1,4 @@
 Name: ChiFileBrowser
-Author=Cody Precord
+Author=Chris Clark
 Description=UNKNOWN
 Version: 2.2
