@@ -8,7 +8,7 @@ import sys
 try:
     from setuptools import setup
 except ImportError:
-    print "You must have setup tools installed in order to build this plugin"
+    print("You must have setup tools installed in order to build this plugin")
     setup = None
 
 __author__ = "Chris Clark"
