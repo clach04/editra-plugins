@@ -40,3 +40,21 @@ To build the plugin run:
     python setup.py
 
 an egg will be built and put into the plugin directory.
+
+## TODO
+
+### Test
+
+  * read (decrypt) with correct password
+  * read (decrypt) with bad password
+  * write (encrypt)
+  * read with some sort of error (path does not exist, permission, file IO, exception in chi_io, exception in plugin)
+  * write with some sort of error (path does not exist, permission, file IO, exception in chi_io, exception in plugin)
+  * read file with utf-8 encoded data - latin (e.g. euro symbol, British pound sign, u umlaut)
+  * read file with utf-8 encoded data - CJK (e.g. Kanji)
+  * write file with utf-8 encoded data - latin (e.g. euro symbol, British pound sign, u umlaut)
+  * write file with utf-8 encoded data - CJK (e.g. Kanji)
+  * read file with latin filename (e.g. euro symbol, British pound sign, u umlaut)
+  * read file with CJK filename (e.g. Kanji)
+  * write file with latin filename (e.g. euro symbol, British pound sign, u umlaut)
+  * write file with CJK filename (e.g. Kanji)
