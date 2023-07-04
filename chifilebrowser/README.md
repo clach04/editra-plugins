@@ -16,6 +16,7 @@ Rough notes:
     cd ..
     cd src
     TODO get chi_io.py  -- https://github.com/clach04/chi_io
+        TODO instead pull here into plugin?
     cd ..
     TODO get dependencies (wx, PyCrypto, ...)
     c:\Python27\python editra
