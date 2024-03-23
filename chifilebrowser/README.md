@@ -15,7 +15,7 @@ Rough notes:
     git checkout chifilebrowser
     cd ..
     cd src
-    TODO get chi_io.py  -- https://github.com/clach04/chi_io
+    TODO get chi_io.py  -- https://github.com/clach04/chi_io - from pypi https://pypi.org/project/chi-io/
         TODO instead pull here into plugin?
     cd ..
     TODO get dependencies (wx, PyCrypto, ...)
