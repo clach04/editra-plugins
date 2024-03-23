@@ -14,7 +14,7 @@ Build:
     python setup.py --quiet bdist_egg
     python setup.py --quiet bdist_egg --dist-dir=../
 
-SImply play the egg in the plugins directory will allow read/write of gzip
+Simply placing the egg into the plugins directory will allow read/write of gzip
 compressed files.
 
 NOTE the plugin manager has no idea about this plugin!
