@@ -44,6 +44,9 @@ an egg will be built and put into the plugin directory.
 
 ## TODO
 
+1. remove trash / recycle embedded windows exe
+2. add markdown file extension, .md to lit of supported files
+
 ### Test
 
   * read (decrypt) with correct password
