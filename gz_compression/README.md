@@ -1,4 +1,6 @@
-From 
+From https://github.com/clach04/editra-plugins/tree/chifilebrowser/
+
+NOTE for this to work ANY other plugin needs to be activated to ensure this gets activated.
 
 sample setup:
 
