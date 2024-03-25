@@ -12,5 +12,4 @@ Under Windows default plugin path copy:
 
 ## TODO
 
-  * implement `FIXME call super instead`, rather than raw file io, so as to allow plugin chaining.
   * address all FIXME and TODO items
