@@ -19,6 +19,12 @@ compressed files.
 
 NOTE the plugin manager has no idea about this plugin!
 It's not listed and monkey patch always takes place.
+
+This monkey patches ed_txt.EdFile.DoOpen()
+I.e. the DoOpen() method of the ed_txt.EdFile class.
+
+Ideally the EditraBaseStc class would allow control over the file loader,
+which would remove the need for monkey patching.
 """
 __author__ = "Chris Clark"
 __version__ = "0.1"
@@ -70,6 +76,7 @@ def DoOpen(self, mode):
         #print("[gz_compression] %r" % self.__class__)
         #print("[gz_compression] %r" % self.__class__.__name__)
         if mode in ('rb', 'wb'):
+            Log("[gz_compression] attempting to open gz file")
             # hack time
             #fileptr = open(filename, mode)
             #file_h = gzip.GzipFile(os.path.basename(filename), 'rb', fileobj=fileptr)
