@@ -50,6 +50,7 @@ class GzipPlugin(plugin.Plugin):
     plugin.Implements(FileInputOutout)
 
 
+original_ed_txt_EdFile_DoOpen = ed_txt.EdFile.DoOpen
 def DoOpen(self, mode):
     """Opens and creates the internal file object
     @param mode: mode to open file in
@@ -60,22 +61,22 @@ def DoOpen(self, mode):
     if not len(self._path):
         return False
 
+    filename = self._path
+    if not filename.lower().endswith('.gz'):
+        # try/except for error handling needed here?
+        return original_ed_txt_EdFile_DoOpen(self, mode)
+
     try:
         #print("[gz_compression] %r" % self.__class__)
         #print("[gz_compression] %r" % self.__class__.__name__)
-        filename = self._path
-        if filename.lower().endswith('.gz'):
-            if mode in ('rb', 'wb'):
-                # hack time
-                #fileptr = open(filename, mode)
-                #file_h = gzip.GzipFile(os.path.basename(filename), 'rb', fileobj=fileptr)
-                file_h = gzip.GzipFile(filename, mode)
-            else:
-                # FIXME raise IOError()
-                self.SetLastError(unicode('%s gz plugin : mode %r not supported for compress gz files.' % (self.__class__.__name__, mode)))
+        if mode in ('rb', 'wb'):
+            # hack time
+            #fileptr = open(filename, mode)
+            #file_h = gzip.GzipFile(os.path.basename(filename), 'rb', fileobj=fileptr)
+            file_h = gzip.GzipFile(filename, mode)
         else:
-            # FIXME call super instead
-            file_h = open(self._path, mode)
+            # FIXME raise IOError()
+            self.SetLastError(unicode('%s gz plugin : mode %r not supported for compress gz files.' % (self.__class__.__name__, mode)))
     except (IOError, OSError), msg:
         self.SetLastError(unicode(msg))
         return False
