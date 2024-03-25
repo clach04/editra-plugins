@@ -23,16 +23,23 @@ It's not listed and monkey patch always takes place.
 __author__ = "Chris Clark"
 __version__ = "0.1"
 
-
-import gzip
+print('[gz_compression] DEBUG pre import')
 import os
+"""
+if os.environ.get("DEBUG_PLUGIN"):
+    import pdb ; pdb.set_trace()
+"""
+import gzip
 import sys
 
 
 # Editra imports
 import ed_txt
 import plugin
+from util import Log  # requires enabling view of Editra log. Menu; View -> Shelf -> Editra Log
 
+
+Log("[gz_compression] PlugIn code starts - post import")
 
 class FileInputOutout(plugin.Interface):  # FIXME add to editra code base? Plugin manager has no idea about this
     pass
@@ -54,8 +61,8 @@ def DoOpen(self, mode):
         return False
 
     try:
-        print(self.__class__)
-        print(self.__class__.__name__)
+        #print("[gz_compression] %r" % self.__class__)
+        #print("[gz_compression] %r" % self.__class__.__name__)
         filename = self._path
         if filename.lower().endswith('.gz'):
             if mode in ('rb', 'wb'):
@@ -75,6 +82,16 @@ def DoOpen(self, mode):
     else:
         self._handle = file_h
         self.open = True
+
+        # Below is not required if GuessEncoding() does NOT open filename - see https://github.com/clach04/editra/commit/da28e8a0b8407a516a389de025f9b9cbc20a5e99
+        # this is both a workaround and a real solution.
+        # EdFile.DetectEncoding() will call GuessEncoding() which uses the file name (rather than a get on an already open file handle)
+        #self.SetEncoding('utf-8')  # Why is the main editor code using 'utf_8' - what even is that!?
+        #self.encoding = 'cp1252'
+        # if wrong one picked, e.g. actually utf-8 end up in a loop with GUI prompt for "The correct encoding of ...." and "utf_8" (yes underbar) will NOT be accepted as valid!
+        # conversely. if really cp1252, that's not accepted either so there is a bug in the raw mode of Editra where it gets confused (probably due to leading "0" that gets prefixed to each byte
+        # better fix would be to update GuessEncoding() with buffer instead of repeatedly opening and reading from file
         return True
 
+Log("[gz_compression] PlugIn about to monkey-patch ed_txt.EdFile.DoOpen")
 ed_txt.EdFile.DoOpen = DoOpen  # monkey patch!
