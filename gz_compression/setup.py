@@ -2,9 +2,7 @@
 # Setup script to build gzip plugin. To build the plugin
 # just run 'python setup.py bdist_egg' and an egg will be built and put into
 # the plugin directory
-"""
-TODO
-"""
+
 __author__ = "Chris Clark"
 
 import sys
