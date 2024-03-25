@@ -1,0 +1,4 @@
+Name=gz_compression
+Author=Chris Clark
+Description=gzip compressed file read/write IO
+Version=0.1
