@@ -1,4 +1,6 @@
-File read/write plugin.
+Encrypted file read/write plugin.
+
+From From https://github.com/clach04/editra-plugins/tree/chifilebrowser/
 
 Editra doesn't have support for file read/write plugins so this claims to be a theme.
 NOTE for this to work ANY other plugin needs to be activated to ensure this gets activated.
@@ -35,6 +37,7 @@ NOTE write/save is UNTESTED!
 ## TODO
 
   * address all FIXME and TODO items
+  * see if `install_requires` in setup.py works?
   * re-prompt for password if password is incorrect?
   * safe-save/backup support - see https://github.com/clach04/puren_tonbo/issues/134
   * New plugin - Puren Tonbo support https://github.com/clach04/puren_tonbo (see https://github.com/clach04/puren_tonbo/issues/10)
