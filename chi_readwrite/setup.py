@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Setup script to build gzip plugin. To build the plugin
+# Setup script to build chi/Tombo plugin. To build the plugin
 # just run 'python setup.py bdist_egg' and an egg will be built and put into
 # the plugin directory
 
@@ -23,18 +23,18 @@ Suggested setup.py parameters:
 """)
 if setup != None:
     setup(
-        name='gz_compression',
+        name='chi_readwrite',
         version='0.1',
         description=__doc__,
         author=__author__,
         author_email="clach04",
         license="GPLv2",
-        url="http://editra.org",
+        url="https://github.com/clach04/editra-plugins/",
         platforms=["Linux", "OS X", "Windows"],
-        packages=['gz_compression'],
-        #package_data={'gz_compression' : ['pixmaps/AUTHORS', 'pixmaps/COPYING',]},
+        packages=['chi_readwrite'],  # FIXME chi_io dependencies
+        #package_data={'chi_readwrite' : ['pixmaps/AUTHORS', 'pixmaps/COPYING',]},
         entry_points='''
         [Editra.plugins]
-        gzip = gz_compression:HumilityTheme
+        chi = chi_readwrite:HumilityTheme
         '''
         )

@@ -1,4 +1,4 @@
-Name=gz_compression
+Name=chi_readwrite
 Author=Chris Clark
-Description=gzip compressed file read/write IO
+Description=Tombo encrypted *.chi file read/write IO
 Version=0.1

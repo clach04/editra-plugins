@@ -1,11 +1,11 @@
 ###############################################################################
 # Name: __init__.py                                                           #
-# Purpose: Provides gzip compressed file support for Editra                   #
+# Purpose: Tombo encrypted *.chi file support for Editra                      #
 # Author: Chris Clark <clach04@gmail.com>                                     #
-# Copyright: (c) 2023 Chris Clark <clach04@gmail.com>                         #
+# Copyright: (c) 2024 Chris Clark <clach04@gmail.com>                         #
 # Licence: GPLv2 Licence                                                      #
 ###############################################################################
-"""gzip compressed read/write support plugin for Editra
+"""Tombo encrypted *.chi read/write support plugin for Editra
 
 Build:
 
@@ -14,8 +14,8 @@ Build:
     python setup.py --quiet bdist_egg
     python setup.py --quiet bdist_egg --dist-dir=../
 
-Simply placing the egg into the plugins directory will allow read/write of gzip
-compressed files.
+Simply placing the egg into the plugins directory will allow read/write of chi
+encrypted files.
 
 NOTE the plugin manager has no idea about this plugin!
 It's not listed and monkey patch always takes place.
@@ -29,30 +29,35 @@ which would remove the need for monkey patching.
 __author__ = "Chris Clark"
 __version__ = "0.1"
 
-print('[gz_compression] DEBUG pre import')
+print('[chi_readwrite] DEBUG pre import')
 import os
 """
 if os.environ.get("DEBUG_PLUGIN"):
     import pdb ; pdb.set_trace()
 """
-import gzip
 import sys
 
 
-# Editra imports
+# Editra (related) imports
+import wx
 import ed_txt
 import plugin
 from util import Log  # requires enabling view of Editra log. Menu; View -> Shelf -> Editra Log
 
+# additional imports
+# https://github.com/clach04/chi_io/
+# https://pypi.org/project/chi-io/
+import chi_io  # FIXME chi_io dependencies (in setup.py)
 
-Log("[gz_compression] PlugIn code starts - post import")
+
+Log("[chi_readwrite] PlugIn code starts - post import")
 
 class FileInputOutout(plugin.Interface):  # FIXME add to editra code base? Plugin manager has no idea about this
     pass
 
 
-class GzipPlugin(plugin.Plugin):
-    """Provides gzip compressed file support"""
+class TomboChiPlugin(plugin.Plugin):
+    """Provides Tombo/chi encrypted file support"""
     plugin.Implements(FileInputOutout)
 
 
@@ -68,23 +73,23 @@ def DoOpen(self, mode):
         return False
 
     filename = self._path
-    if not filename.lower().endswith('.gz'):
+    if not filename.lower().endswith('.chi'):
         # try/except for error handling needed here?
         return original_ed_txt_EdFile_DoOpen(self, mode)
 
     try:
-        #print("[gz_compression] %r" % self.__class__)
-        #print("[gz_compression] %r" % self.__class__.__name__)
-        if mode in ('rb', 'wb'):
-            Log("[gz_compression] attempting to open gz file")
-            # hack time
-            #fileptr = open(filename, mode)
-            #file_h = gzip.GzipFile(os.path.basename(filename), 'rb', fileobj=fileptr)
-            file_h = gzip.GzipFile(filename, mode)
-        else:
-            # FIXME raise IOError()
-            self.SetLastError(unicode('%s gz plugin : mode %r not supported for compress gz files.' % (self.__class__.__name__, mode)))
-    except (IOError, OSError), msg:
+        # mode check not required, as chi_io.ChiAsFile will check
+        Log("[chi_readwrite] attempting to open Tombo chi file")
+        if os.environ.get("DEBUG_PLUGIN_CHI"):
+            import pdb ; pdb.set_trace()
+
+        #password = "password" ## TODO for no, no GUI. FIXME hardcoded DEBUG Pick up from environ var..
+        password = os.environ.get("EDITRA_CHI_PASSWORD")
+        if not password:
+            password = wx.GetPasswordFromUser("Password: ", "Password required")
+        # rely on chi_io to handle password (encoding, etc.) NOTE for performance consider using caching password function
+        file_h = chi_io.ChiAsFile(filename, password, mode)
+    except (IOError, OSError, chi_io.ChiIO), msg:
         self.SetLastError(unicode(msg))
         return False
     else:
@@ -101,5 +106,5 @@ def DoOpen(self, mode):
         # better fix would be to update GuessEncoding() with buffer instead of repeatedly opening and reading from file
         return True
 
-Log("[gz_compression] PlugIn about to monkey-patch ed_txt.EdFile.DoOpen")
+Log("[chi_readwrite] PlugIn about to monkey-patch ed_txt.EdFile.DoOpen")
 ed_txt.EdFile.DoOpen = DoOpen  # monkey patch!
