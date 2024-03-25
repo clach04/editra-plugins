@@ -1,6 +1,7 @@
 File read/write plugin.
 
 Editra doesn't have support for file read/write plugins so this claims to be a theme.
+NOTE for this to work ANY other plugin needs to be activated to ensure this gets activated.
 
 Sample setup:
 
