@@ -21,6 +21,14 @@ Suggested setup.py parameters:
     * bdist_egg
 
 """)
+
+# install_requires experiment
+install_requires = ['chi_io', ]
+# optional 'pycryptodome'
+"""End up with error:
+[18:42:52][pluginmgr][info] Found plugin: chi-readwrite
+[18:42:52][pluginmgr][err] Couldn't Load chi: The 'chi_io' distribution was not found and is required by the application
+"""
 if setup != None:
     setup(
         name='chi_readwrite',
@@ -31,6 +39,7 @@ if setup != None:
         license="GPLv2",
         url="https://github.com/clach04/editra-plugins/",
         platforms=["Linux", "OS X", "Windows"],
+        #install_requires=install_requires,  # disabled as this does not work
         packages=['chi_readwrite'],  # FIXME chi_io dependencies
         #package_data={'chi_readwrite' : ['pixmaps/AUTHORS', 'pixmaps/COPYING',]},
         entry_points='''
